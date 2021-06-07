@@ -1,3 +1,6 @@
+# Installing in Development mode on Windows
+
+
 This document describes how to install Spryker in [Development Mode](01-choosing-an-installation-mode.md#development-mode) on Windows.
 
 ## Installing Docker prerequisites on Windows
@@ -18,13 +21,13 @@ Follow the steps to install Spryker in Development mode:
     a. Clone the B2C repository:
 
     ```bash
-    git clone https://github.com/spryker-shop/b2c-demo-shop.git -b 202009.0-p1 --single-branch ./
+    git clone https://github.com/spryker-shop/b2c-demo-shop.git -b 202009.0-p1 --single-branch ./b2c-demo-shop
     ```
 
     b. Clone the B2B repository:
 
     ```bash
-    git clone https://github.com/spryker-shop/b2b-demo-shop.git -b 202009.0-p1 --single-branch ./
+    git clone https://github.com/spryker-shop/b2b-demo-shop.git -b 202009.0-p1 --single-branch ./b2b-demo-shop
     ```
 
 5. Depending on the repository you've cloned, navigate into the cloned folder:
@@ -96,9 +99,9 @@ docker/sdk up
     The hosts file opens in the drop-down.
     8. Add the following line into the file:
     ```text
-    127.0.0.1   zed.de.spryker.local glue.de.spryker.local yves.de.spryker.local scheduler.spryker.local mail.spryker.local queue.spryker.local
+    127.0.0.1   backoffice.de.spryker.local backend-gateway.de.spryker.local backend-api.de.spryker.local glue.de.spryker.local yves.de.spryker.local scheduler.spryker.local mail.spryker.local queue.spryker.local
     ```
-    @(Info)()(If needed, add corresponding entries for other stores. For example, if you are going to have a US store, add the following entries: `zed.us.spryker.local glue.us.spryker.local yves.us.spryker.local`)
+    @(Info)()(If needed, add corresponding entries for other stores. For example, if you are going to have a US store, add the following entries: `backoffice.us.spryker.local backend-gateway.us.spryker.local backend-api.us.spryker.local glue.us.spryker.local yves.us.spryker.local`)
     9. Select **File** > **Save**.
     10. Close the file.
 
@@ -112,8 +115,9 @@ To ensure that the installation is successful, make sure you can access the foll
 | Application | Endpoints |
 | --- | --- |
 | The Storefront |  yves.de.spryker.local, yves.at.spryker.local, yves.us.spryker.local |
-| the Back Office | zed.de.spryker.local, zed.at.spryker.local, zed.us.spryker.local |
+| the Back Office | backoffice.de.spryker.local, backoffice.at.spryker.local, backoffice.us.spryker.local |
 | Glue API | glue.de.spryker.local, glue.at.spryker.local, glue.us.spryker.local |
+| The Merchant Portal | mp.de.spryker.local, mp.at.spryker.local, mp.us.spryker.local |
 | Jenkins (scheduler) | scheduler.spryker.local |
 | RabbitMQ UI (queue manager) | queue.spryker.local |
 | Mailhog UI (email catcher) | mail.spryker.local |
