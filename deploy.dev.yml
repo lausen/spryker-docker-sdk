@@ -1,0 +1,161 @@
+version: "0.1"
+
+namespace: meus_spryker_b2b_dev
+tag: 'dev'
+
+environment: docker.dev
+image:
+    tag: spryker/php:7.4-alpine3.13
+    environment:
+        SPRYKER_DEFAULT_STORE: "DE"
+        SPRYKER_ACTIVE_STORES: "DE"
+        MEUSBURGER_SFTP_ROOT_DIR: ""
+        MEUSBURGER_SFTP_HOST: "192.168.1.47"
+        MEUSBURGER_SFTP_USER: "mb-data"
+        MEUSBURGER_SFTP_PASSWORD: "soh)H6eo8Io5"
+        MEUSBURGER_SFTP_SSL: False
+        API_PLATFORM_URL: "https://api.meusburger-api.aditsystems.dev"
+        API_PLATFORM_USERNAME: "api-user"
+        API_PLATFORM_PASSWORD: "7-halt-anything-smiled-97"
+    php:
+        ini:
+            "memory_limit": 3G
+        enabled-extensions:
+            - tideways
+composer:
+    mode: ''
+    autoload: ''
+assets:
+    mode: development
+
+regions:
+    EU:
+        services:
+            database:
+                database: eu-docker
+                username: spryker
+                password: secret
+
+        stores:
+            DE:
+                services:
+                    broker:
+                        namespace: de-docker
+                    key_value_store:
+                        namespace: 1
+                    search:
+                        namespace: de_search
+groups:
+    EU:
+        region: EU
+        applications:
+            yves_eu:
+                application: yves
+                endpoints:
+                    yves.de.spryker.local:
+                        store: DE
+                        services:
+                            session:
+                                namespace: 1
+            glue_eu:
+                application: glue
+                endpoints:
+                    glue.de.spryker.local:
+                        store: DE
+            zed_eu:
+                application: zed
+                endpoints:
+                    zed.de.spryker.local:
+                        store: DE
+                        services:
+                            session:
+                                namespace: 2
+services:
+    database:
+        engine: mysql
+        version: mariadb-10.4
+        root:
+            username: "root"
+            password: "secret"
+        endpoints:
+            localhost:3306:
+                protocol: tcp
+    broker:
+        engine: rabbitmq
+        api:
+            username: "spryker"
+            password: "secret"
+        endpoints:
+            queue.spryker.local:
+            localhost:5672:
+                protocol: tcp
+    session:
+        engine: redis
+    key_value_store:
+        engine: redis
+        endpoints:
+            localhost:16379:
+                protocol: tcp
+    search:
+        engine: elastic
+        version: 6.8
+        endpoints:
+            localhost:9200:
+                protocol: tcp
+    scheduler:
+        engine: jenkins
+        endpoints:
+            scheduler.spryker.local:
+    mail_catcher:
+        engine: mailhog
+        endpoints:
+            mail.spryker.local:
+    swagger:
+        engine: swagger-ui
+        endpoints:
+            swagger.spryker.local:
+    redis-gui:
+        engine: redis-commander
+        endpoints:
+            redis-commander.spryker.local:
+    dashboard:
+        engine: dashboard
+        endpoints:
+            spryker.local:
+    kibana:
+        engine: kibana
+        endpoints:
+            kibana.spryker.local:
+    blackfire:
+        engine: blackfire
+        server-id: 32a5157c-0471-4c49-b251-2a3bae64733e
+        server-token: 2bb206f7c183a128f784b4a89d1240ec81b8a3bd94a82cc8c42473be4f293a8b
+        client-id: efbc23a0-2704-4b42-9f67-22f83e8aa4d9
+        client-token: efbe6a5c54ed63ea67257718357b8d92e3cfd98931aa781557ddaa74ac2034a3
+
+docker:
+
+    ssl:
+        enabled: false
+        redirect: true
+
+    testing:
+        store: DE
+
+    debug:
+        enabled: true
+        xdebug:
+            enabled: true
+
+    mount:
+        native:
+            platforms:
+                - linux
+
+        docker-sync:
+            platforms:
+                - windows
+
+        mutagen:
+            platforms:
+                - macos
