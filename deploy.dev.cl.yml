@@ -22,6 +22,9 @@ image:
             "memory_limit": 3G
         enabled-extensions:
             - tideways
+            - newrelic
+
+
 composer:
     mode: ''
     autoload: ''
@@ -134,6 +137,9 @@ services:
         client-token: efbe6a5c54ed63ea67257718357b8d92e3cfd98931aa781557ddaa74ac2034a3
 
 docker:
+
+    newrelic:
+        license: eu01xxc9cab248aec01ee4ac9a1503d6d574NRAL
 
     ssl:
         enabled: false
